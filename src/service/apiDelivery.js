@@ -1,6 +1,6 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3131/";
+axios.defaults.baseURL = "https://fast-delivery-2glj.onrender.com/";
 
 export const getCurrentDelivery = async (category) => {
    try {
