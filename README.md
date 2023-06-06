@@ -5,4 +5,5 @@ A Frontend created for the Fast Delivery app in which you can order burgers, fre
 Open the terminal. When you are in the client folder, enter the command "npm i". And after loading - "npm start" After that the application should work!
 
 You can see the project's work here - https://fast-delivery-tau.vercel.app
+
 Backend by link https://github.com/nezalonov-serhii/fast-delivery_backend
