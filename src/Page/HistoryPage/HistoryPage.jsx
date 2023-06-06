@@ -1,11 +1,15 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getOrderHistoryThunk } from "../../redux/thunk/orderThunk";
 import { HistoryContainer, HistorySection } from "./HistoryPage.styled";
 import HistoryList from "../../components/History/HistoryList";
+import { selectLoadingHistory } from "../../redux/selector/selectors";
+import Loader from "../../components/Loader/Loader";
+import { Message } from "../HomePage/HomePage.styled";
 
 const HistoryPage = () => {
    const dispatch = useDispatch();
+   const isLoading = useSelector(selectLoadingHistory);
 
    useEffect(() => {
       dispatch(getOrderHistoryThunk());
@@ -15,7 +19,12 @@ const HistoryPage = () => {
    return (
       <HistorySection>
          <HistoryContainer>
-            <HistoryList />
+            {!isLoading && <HistoryList />}
+            {isLoading && (
+               <Message>
+                  <Loader />
+               </Message>
+            )}
          </HistoryContainer>
       </HistorySection>
    );

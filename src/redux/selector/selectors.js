@@ -10,3 +10,5 @@ export const selectActiveShopInCart = ({ orders }) => orders.isShopActive;
 
 export const selectHistoryOrder = ({ ordersHistory }) =>
    ordersHistory.totalHistoryOrder;
+export const selectLoadingHistory = ({ ordersHistory }) =>
+   ordersHistory.isLoading;

@@ -21,6 +21,7 @@ const ordersSlice = createSlice({
          .addCase(getOrderHistoryThunk.pending, handlePending)
          .addCase(getOrderHistoryThunk.fulfilled, (state, { payload }) => {
             state.totalHistoryOrder = payload;
+            state.isLoading = false;
          })
          .addCase(getOrderHistoryThunk.rejected, handleRejected);
    },

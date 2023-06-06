@@ -4,5 +4,9 @@ import { getCurrentDelivery } from "../../service/apiDelivery";
 
 export const getCurrentDeliveryThunk = createAsyncThunk(
    "delivery/currentDelivery",
-   async (category) => getCurrentDelivery(category)
+   async (category) => {
+      if (!category) throw new Error("Please select a market");
+
+      return getCurrentDelivery(category);
+   }
 );
