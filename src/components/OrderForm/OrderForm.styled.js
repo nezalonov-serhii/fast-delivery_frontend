@@ -4,7 +4,7 @@ export const OrderFormFields = styled.form`
    display: flex;
    flex-direction: column;
 
-   height: calc(100vh - 117px);
+   height: calc(100vh - 127px);
    overflow-y: auto;
 
    padding: 20px;

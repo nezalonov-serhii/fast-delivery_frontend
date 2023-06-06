@@ -21,6 +21,7 @@ import {
    addProductToCart,
    setActiveShopInCart,
 } from "../../redux/Slice/ordersSlice";
+import { toast } from "react-toastify";
 
 const MarketProducts = () => {
    const currentDelivery = useSelector(selectCurrentDelivery);
@@ -42,6 +43,7 @@ const MarketProducts = () => {
       };
 
       dispatch(addProductToCart({ product, _id }));
+      toast.success(`${name} add in order card`);
       dispatch(setActiveShopInCart(market));
    };
 

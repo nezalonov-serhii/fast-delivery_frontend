@@ -1,5 +1,5 @@
-import OrderForm from "../../components/OrderCard/OrderForm/OrderForm";
-import OrderList from "../../components/OrderCard/OrderList/OrderList";
+import OrderForm from "../../components/OrderForm/OrderForm";
+import OrderList from "../../components/OrderList/OrderList";
 import { OrdersContainer, OrdersSection } from "./OrderPage.styled";
 
 const OrdersPage = () => {

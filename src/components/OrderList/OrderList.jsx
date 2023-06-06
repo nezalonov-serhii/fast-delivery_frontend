@@ -11,22 +11,28 @@ import {
    OrderListStyled,
    ProductsLink,
 } from "./OrderList.styled";
-import { selectOrders } from "../../../redux/selector/selectors";
+import {
+   selectActiveShopInCart,
+   selectOrders,
+} from "../../redux/selector/selectors";
 import {
    handelCountProduct,
    removeProduct,
-} from "../../../redux/Slice/ordersSlice";
+} from "../../redux/Slice/ordersSlice";
 import {
    ProductPriceDiscount,
    ProductPriceNoDiscount,
-} from "../../MarketProducts/MarketProducts.styled";
+} from "../MarketProducts/MarketProducts.styled";
+import { toast } from "react-toastify";
 
 const OrderList = () => {
    const orders = useSelector(selectOrders);
    const dispatch = useDispatch();
+   const activeShopInCart = useSelector(selectActiveShopInCart);
 
-   const handelCount = (_id, count) => {
+   const handelCount = (_id, count, name) => {
       dispatch(handelCountProduct({ _id, count: Number(count) }));
+      toast.info(`${name} quantity change to ${count}`);
    };
 
    const onChangeValue = (_id) => {
@@ -34,31 +40,41 @@ const OrderList = () => {
       return count;
    };
 
+   const handelDelete = (_id, name) => {
+      dispatch(removeProduct(_id));
+      toast.error(`${name} remove from order`);
+   };
+
    return (
       <OrderListStyled>
          {orders.length === 0 && (
             <h2 style={{ textAlign: "center" }}>
-               Please add <ProductsLink to="/">Products</ProductsLink> to cart
+               Please add{" "}
+               <ProductsLink to={activeShopInCart ? activeShopInCart : "/king"}>
+                  Products
+               </ProductsLink>{" "}
+               to cart
             </h2>
          )}
          {orders.length !== 0 &&
             orders.map((order) => {
-               const priceDiscount = order.price * (1 - order.discount);
+               const { price, discount, imageUrl, name, _id } = order;
+               const priceDiscount = price * (1 - discount);
 
                return (
-                  <OrderItem key={order._id}>
-                     <OrderImg src={order.imageUrl} alt={order.name} />
+                  <OrderItem key={_id}>
+                     <OrderImg src={imageUrl} alt={name} />
                      <OrderDescription>
-                        <h2>{order.name}</h2>
-                        {order.discount && (
+                        <h2>{name}</h2>
+                        {discount && (
                            <ProductPriceDiscount>
-                              Price: <span>{order.price.toFixed(2)} ₴</span>
+                              Price: <span>{price.toFixed(2)} ₴</span>
                               {priceDiscount.toFixed(2)} ₴
                            </ProductPriceDiscount>
                         )}
-                        {!order.discount && (
-                           <ProductPriceNoDiscount discount={order.discount}>
-                              Price: {order.price.toFixed(2)} ₴
+                        {!discount && (
+                           <ProductPriceNoDiscount discount={discount}>
+                              Price: {price.toFixed(2)} ₴
                            </ProductPriceNoDiscount>
                         )}
                         <InputWrap>
@@ -67,15 +83,15 @@ const OrderList = () => {
                               <InputOrder
                                  type="number"
                                  min={1}
-                                 value={onChangeValue(order._id)}
-                                 onChange={(e) =>
-                                    handelCount(order._id, e.target.value)
+                                 value={onChangeValue(_id)}
+                                 onChange={({ target }) =>
+                                    handelCount(_id, target.value, name)
                                  }
                               />
                            </LabelOrder>
                            <ButtonDelete
                               onClick={() => {
-                                 dispatch(removeProduct(order._id));
+                                 handelDelete(_id, name);
                               }}
                            >
                               <AiOutlineDelete />

@@ -14,12 +14,12 @@ export const HomePageContainer = styled.div`
 `;
 
 export const Message = styled.h2`
+   display: flex;
+   justify-content: center;
    padding: 20px;
    flex: 3 1 0;
 
    border-radius: 15px;
    box-shadow: rgb(150, 150, 150) 10px 10px 20px;
    background-color: #fff;
-
-   text-align: center;
 `;

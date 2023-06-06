@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const SidebarList = styled.ul`
    padding: 20px;
    flex: 1 1 0;
-   height: calc(100vh - 117px);
+   height: calc(100vh - 127px);
    overflow-y: auto;
 
    &::-webkit-scrollbar {

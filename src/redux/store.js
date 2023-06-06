@@ -1,11 +1,40 @@
 import { configureStore } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import {
+   persistStore,
+   persistReducer,
+   FLUSH,
+   REHYDRATE,
+   PAUSE,
+   PERSIST,
+   PURGE,
+   REGISTER,
+} from "redux-persist";
 
 import { deliveryReducer } from "./Slice/deliverySlice";
 import { ordersReducer } from "./Slice/ordersSlice";
+import { ordersHistoryReducer } from "./Slice/historySlice";
+
+const persistConfig = {
+   key: "root",
+   storage,
+   blacklist: ["totalHistoryOrder"],
+};
+
+const persistedReducer = persistReducer(persistConfig, ordersReducer);
 
 export const store = configureStore({
    reducer: {
       delivery: deliveryReducer,
-      orders: ordersReducer,
+      ordersHistory: ordersHistoryReducer,
+      orders: persistedReducer,
    },
+   middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+         serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+         },
+      }),
 });
+
+export const persistor = persistStore(store);

@@ -5,10 +5,17 @@ import { getCurrentDeliveryThunk } from "../thunk/deliveryThunk";
 
 const handlePending = (state) => {
    state.isLoading = true;
+   state.delivery = [];
 };
 
 const handleRejected = (state, { error }) => {
    state.error = error;
+   state.isLoading = false;
+};
+
+const handleFulfilled = (state, { payload }) => {
+   state.delivery = payload;
+   state.error = null;
    state.isLoading = false;
 };
 
@@ -19,9 +26,7 @@ const deliverySlice = createSlice({
    extraReducers: (builder) => {
       builder
          .addCase(getCurrentDeliveryThunk.pending, handlePending)
-         .addCase(getCurrentDeliveryThunk.fulfilled, (state, { payload }) => {
-            state.delivery = payload;
-         })
+         .addCase(getCurrentDeliveryThunk.fulfilled, handleFulfilled)
          .addCase(getCurrentDeliveryThunk.rejected, handleRejected);
    },
 });

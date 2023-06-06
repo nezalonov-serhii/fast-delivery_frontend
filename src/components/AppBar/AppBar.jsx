@@ -20,7 +20,9 @@ const AppBar = () => {
       <Header>
          <HeaderContainer>
             <HeaderNav>
-               <HeaderLink to={activeShopInCart}>Home</HeaderLink>
+               <HeaderLink to={activeShopInCart ? activeShopInCart : "/king"}>
+                  Home
+               </HeaderLink>
                <HeaderOrderWrap>
                   <HeaderLink to="/orders">Orders card</HeaderLink>
                   {totalCount !== 0 && <Counter>{totalCount}</Counter>}

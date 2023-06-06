@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { getCurrentDelivery } from "../../service/apiUsers";
+import { getCurrentDelivery } from "../../service/apiDelivery";
 
 export const getCurrentDeliveryThunk = createAsyncThunk(
    "delivery/currentDelivery",

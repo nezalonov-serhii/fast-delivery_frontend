@@ -5,9 +5,10 @@ import {
    selectOrders,
    selectTotalCost,
    selectTotalDiscount,
-} from "../../../redux/selector/selectors";
-import { createOrderThunk } from "../../../redux/thunk/orderThunk";
-import { clearOrder } from "../../../redux/Slice/ordersSlice";
+} from "../../redux/selector/selectors";
+import { createOrderThunk } from "../../redux/thunk/orderThunk";
+import { clearOrder } from "../../redux/Slice/ordersSlice";
+import { toast } from "react-toastify";
 
 const OrderForm = () => {
    const totalCost = useSelector(selectTotalCost);
@@ -34,10 +35,16 @@ const OrderForm = () => {
          productsOrder,
       };
 
-      dispatch(createOrderThunk(newOrder));
+      dispatch(createOrderThunk(newOrder))
+         .unwrap()
+         .then(() => {
+            toast.info(
+               "Thanks for the order, wait for our manager to contact you"
+            );
+         });
+
       dispatch(clearOrder());
 
-      console.log(productsOrder);
       resetForm();
    };
 
@@ -47,6 +54,10 @@ const OrderForm = () => {
       setPhone("");
       setAddress("");
    };
+
+   function containsOnlyNumber(str) {
+      return str.match(/^[\d()+-]*$/) !== null;
+   }
 
    return (
       <OrderFormFields onSubmit={handlerSubmit}>
@@ -74,7 +85,13 @@ const OrderForm = () => {
                type="tel"
                required
                value={phone}
-               onChange={(e) => setPhone(e.target.value)}
+               pattern="^[0-9]+$"
+               onChange={(e) => {
+                  if (containsOnlyNumber(e.target.value))
+                     setPhone(e.target.value);
+
+                  // setPhone(phone.replace(/[^\d]/g, ""));
+               }}
             />
          </FormLabel>
          <FormLabel>

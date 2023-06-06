@@ -1,6 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { createOrder } from "../../service/apiUsers";
+import { createOrder, getAllOrder } from "../../service/apiDelivery";
+
+export const getOrderHistoryThunk = createAsyncThunk(
+   "orders/getOrder",
+   async () => getAllOrder()
+);
 
 export const createOrderThunk = createAsyncThunk(
    "orders/addOrder",

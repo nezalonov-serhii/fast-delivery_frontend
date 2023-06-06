@@ -5,7 +5,7 @@ export const ProductList = styled.ul`
    display: flex;
    flex-wrap: wrap;
    gap: 20px;
-   height: calc(100vh - 117px);
+   height: calc(100vh - 127px);
    overflow-y: auto;
 
    padding: 20px;
