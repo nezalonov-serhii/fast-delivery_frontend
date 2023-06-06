@@ -9,6 +9,8 @@ export const HistoryProductsListStyled = styled.ul`
    overflow-x: scroll;
 
    border-radius: 15px;
+   border: 2px solid #343434;
+   border-bottom: none;
 
    &::-webkit-scrollbar {
       height: 15px;
@@ -31,10 +33,11 @@ export const HistoryProductsItem = styled.li`
    overflow: hidden;
 
    border-radius: 15px;
+
    background-color: #fff;
 
    & img {
-      width: 300px;
+      width: 240px;
       object-fit: cover;
    }
 `;

@@ -1,4 +1,10 @@
 import { useSelector } from "react-redux";
+
+import {
+   selectActiveShopInCart,
+   selectTotalCount,
+} from "../../redux/selector/selectors";
+
 import {
    Counter,
    Header,
@@ -7,10 +13,6 @@ import {
    HeaderNav,
    HeaderOrderWrap,
 } from "./AppBar.styled";
-import {
-   selectActiveShopInCart,
-   selectTotalCount,
-} from "../../redux/selector/selectors";
 
 const AppBar = () => {
    const totalCount = useSelector(selectTotalCount);

@@ -1,8 +1,14 @@
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+
 import {
    selectCurrentDelivery,
    selectOrders,
 } from "../../redux/selector/selectors";
-import { useDispatch, useSelector } from "react-redux";
+import {
+   addProductToCart,
+   setActiveShopInCart,
+} from "../../redux/Slice/ordersSlice";
 
 import {
    ProductBtn,
@@ -17,11 +23,6 @@ import {
    ProductPriceNoDiscount,
    ProductTittle,
 } from "./MarketProducts.styled";
-import {
-   addProductToCart,
-   setActiveShopInCart,
-} from "../../redux/Slice/ordersSlice";
-import { toast } from "react-toastify";
 
 const MarketProducts = () => {
    const currentDelivery = useSelector(selectCurrentDelivery);

@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { FormLabel, OrderFormFields, PriceWrap } from "./OrderForm.styled";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
    selectOrders,
    selectTotalCost,
@@ -8,7 +9,8 @@ import {
 } from "../../redux/selector/selectors";
 import { createOrderThunk } from "../../redux/thunk/orderThunk";
 import { clearOrder } from "../../redux/Slice/ordersSlice";
-import { toast } from "react-toastify";
+
+import { FormLabel, OrderFormFields, PriceWrap } from "./OrderForm.styled";
 
 const OrderForm = () => {
    const totalCost = useSelector(selectTotalCost);

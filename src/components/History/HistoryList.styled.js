@@ -42,10 +42,13 @@ export const HistoryItem = styled.li`
 export const OrderHistoryDescription = styled.div`
    display: flex;
    flex-direction: column;
-   justify-content: end;
+   justify-content: space-between;
 
-   flex: 1 1 0;
-   padding: 20px 10px 35px;
+   flex: 1.2 1 0;
+   padding: 20px 10px 33px;
+
+   border-radius: 15px;
+   border: 2px solid #343434;
 
    & p:last-child {
       border-bottom: 1px solid #000;

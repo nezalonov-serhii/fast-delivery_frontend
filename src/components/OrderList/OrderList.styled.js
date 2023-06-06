@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import bg from "../../img/bg-order.jpg";
 
 export const ProductsLink = styled(Link)`
    color: #004e9d;
@@ -7,8 +8,14 @@ export const ProductsLink = styled(Link)`
 `;
 
 export const OrderListStyled = styled.ul`
+   position: relative;
+   top: 0;
+   left: 0;
+
    height: calc(100vh - 127px);
    overflow-y: auto;
+
+   background-image: url();
 
    padding: 20px;
    flex: 2 1 0;
@@ -30,6 +37,28 @@ export const OrderListStyled = styled.ul`
       border-bottom-right-radius: 15px;
       background-color: rgb(255, 76, 0);
    }
+
+   & h2 {
+      position: relative;
+      text-align: center;
+      color: #343434;
+   }
+
+   ${({ orderEmpty }) => {
+      if (orderEmpty)
+         return `&::before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: url(${bg});
+      background-size: cover;
+      background-position: center;
+      `;
+   }};
 `;
 
 export const OrderItem = styled.li`
@@ -59,6 +88,10 @@ export const OrderDescription = styled.div`
    justify-content: space-evenly;
 
    padding: 20px;
+
+   & h3 {
+      font-size: 30px;
+   }
 `;
 
 export const InputWrap = styled.div`

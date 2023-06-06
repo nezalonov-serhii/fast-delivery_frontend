@@ -1,5 +1,9 @@
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Outlet, useParams } from "react-router-dom";
+
+import Sidebar from "../../components/Sidebar/Sidebar";
+import Loader from "../../components/Loader/Loader";
 
 import {
    selectCurrentDelivery,
@@ -7,10 +11,7 @@ import {
 } from "../../redux/selector/selectors";
 
 import { HomePageContainer, HomePageSection, Message } from "./HomePage.styled";
-import { useEffect } from "react";
 import { getCurrentDeliveryThunk } from "../../redux/thunk/deliveryThunk";
-import Sidebar from "../../components/Sidebar/Sidebar";
-import Loader from "../../components/Loader/Loader";
 
 const HomePage = () => {
    const products = useSelector(selectCurrentDelivery);
@@ -29,7 +30,9 @@ const HomePage = () => {
             <Sidebar />
             {products.length !== 0 && <Outlet />}
             {products.length === 0 && !isLoading && (
-               <Message>Please select a market</Message>
+               <Message productEmpty={products.length === 0}>
+                  <span>Please select a market</span>
+               </Message>
             )}
             {products.length === 0 && isLoading && (
                <Message>

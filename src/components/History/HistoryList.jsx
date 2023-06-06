@@ -1,11 +1,14 @@
 import { useSelector } from "react-redux";
+
+import HistoryListProducts from "./HistoryListProducts";
+
 import { selectHistoryOrder } from "../../redux/selector/selectors";
+
 import {
    HistoryItem,
    HistoryListStyled,
    OrderHistoryDescription,
 } from "./HistoryList.styled";
-import HistoryListProducts from "./HistoryListProducts";
 
 const HistoryList = () => {
    const allHistoryOrder = useSelector(selectHistoryOrder);
@@ -13,16 +16,22 @@ const HistoryList = () => {
    return (
       <HistoryListStyled>
          {allHistoryOrder.map((order) => {
+            console.log(order);
             return (
                <HistoryItem key={order._id}>
                   <HistoryListProducts productsOrder={order.productsOrder} />
                   <OrderHistoryDescription>
-                     <p>
-                        Total price:{" "}
-                        {(order.totalDiscount + order.totalCost).toFixed(2)}₴
-                     </p>
-                     <p>Discount: {order.totalDiscount.toFixed(2)}₴</p>
-                     <p>With discount: {order.totalCost.toFixed(2)}₴</p>
+                     <p>Person: {order.name}</p>
+                     <div>
+                        <p>
+                           Total price:{" "}
+                           {(order.totalDiscount + order.totalCost).toFixed(2)}₴
+                        </p>
+                        <p>Discount: {order.totalDiscount.toFixed(2)}₴</p>
+                        <p>
+                           Total with discount: {order.totalCost.toFixed(2)}₴
+                        </p>
+                     </div>
                   </OrderHistoryDescription>
                </HistoryItem>
             );

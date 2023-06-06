@@ -1,5 +1,20 @@
 import { useDispatch, useSelector } from "react-redux";
 import { AiOutlineDelete } from "react-icons/ai";
+import { toast } from "react-toastify";
+
+import {
+   selectActiveShopInCart,
+   selectOrders,
+} from "../../redux/selector/selectors";
+import {
+   handelCountProduct,
+   removeProduct,
+} from "../../redux/Slice/ordersSlice";
+
+import {
+   ProductPriceDiscount,
+   ProductPriceNoDiscount,
+} from "../MarketProducts/MarketProducts.styled";
 import {
    ButtonDelete,
    InputOrder,
@@ -11,19 +26,6 @@ import {
    OrderListStyled,
    ProductsLink,
 } from "./OrderList.styled";
-import {
-   selectActiveShopInCart,
-   selectOrders,
-} from "../../redux/selector/selectors";
-import {
-   handelCountProduct,
-   removeProduct,
-} from "../../redux/Slice/ordersSlice";
-import {
-   ProductPriceDiscount,
-   ProductPriceNoDiscount,
-} from "../MarketProducts/MarketProducts.styled";
-import { toast } from "react-toastify";
 
 const OrderList = () => {
    const orders = useSelector(selectOrders);
@@ -46,9 +48,9 @@ const OrderList = () => {
    };
 
    return (
-      <OrderListStyled>
+      <OrderListStyled orderEmpty={orders.length === 0}>
          {orders.length === 0 && (
-            <h2 style={{ textAlign: "center" }}>
+            <h2>
                Please add{" "}
                <ProductsLink to={activeShopInCart ? activeShopInCart : "/king"}>
                   Products
@@ -65,7 +67,7 @@ const OrderList = () => {
                   <OrderItem key={_id}>
                      <OrderImg src={imageUrl} alt={name} />
                      <OrderDescription>
-                        <h2>{name}</h2>
+                        <h3>{name}</h3>
                         {discount && (
                            <ProductPriceDiscount>
                               Price: <span>{price.toFixed(2)} ₴</span>
